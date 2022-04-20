@@ -31,7 +31,7 @@ namespace SpectatorList
 
                 if (player.CurrentSpectatingPlayers.Count() > 1)
                 {
-                    list.Append("<align=right><size=45%><color=orange><b>👥 Spectators ({COUNT}):</b>");
+                    list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
                     foreach (Player splayer in player.CurrentSpectatingPlayers)
                     {
                         if (splayer != player && ((splayer.IsOverwatchEnabled && !plugin.Config.IgnoreOverwatch) || (splayer.IsNorthwoodStaff && !plugin.Config.IgnoreNorthwood) || !splayer.IsGlobalModerator))
@@ -42,7 +42,7 @@ namespace SpectatorList
                     }
                     list.Append("</color></size></align>");
 
-                    player.ShowHint(list.ToString().Replace("{COUNT}", $"{count}"), 1.2f);
+                    player.ShowHint(list.ToString().Replace("(COUNT)", $"{count}"), 1.2f);
                 }
             }
         }
