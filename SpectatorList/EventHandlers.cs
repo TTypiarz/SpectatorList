@@ -34,7 +34,7 @@ namespace SpectatorList
                     list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
                     foreach (Player splayer in player.CurrentSpectatingPlayers)
                     {
-                        if (splayer != player && ((splayer.IsOverwatchEnabled && !plugin.Config.IgnoreOverwatch) || (splayer.IsNorthwoodStaff && !plugin.Config.IgnoreNorthwood) || !splayer.IsGlobalModerator))
+                        if (splayer != player && !splayer.IsGlobalModerator && ((splayer.IsOverwatchEnabled && !plugin.Config.IgnoreOverwatch) || (splayer.IsNorthwoodStaff && !plugin.Config.IgnoreNorthwood)))
                         {
                             list.Append($"\n{splayer.Nickname}");
                             count++;
