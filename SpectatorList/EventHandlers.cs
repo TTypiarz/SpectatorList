@@ -29,7 +29,7 @@ namespace SpectatorList
                 StringBuilder list = StringBuilderPool.Shared.Rent();
                 int count = 0;
 
-                if (player.CurrentSpectatingPlayers.Count() != 1)
+                if (player.CurrentSpectatingPlayers.Count() == 1)
                 {
                     list.Append("<align=right><size=45%><color=orange><b>Spectators ({COUNT}):</b>");
                     foreach (Player splayer in player.CurrentSpectatingPlayers)
