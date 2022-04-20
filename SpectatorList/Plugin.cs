@@ -24,7 +24,7 @@ namespace SpectatorList
             Singleton = this;
             EventHandlers = new EventHandlers(this);
 
-            Player.ChangingRole += EventHandlers.Player_ChangingRole;
+            Player.Verified += EventHandlers.OnVerified;
 
             base.OnEnabled();
         }
@@ -34,7 +34,7 @@ namespace SpectatorList
             Singleton = null;
             EventHandlers = null;
 
-            Player.ChangingRole -= EventHandlers.Player_ChangingRole;
+            Player.Verified -= EventHandlers.OnVerified;
 
             base.OnDisabled();
         }
