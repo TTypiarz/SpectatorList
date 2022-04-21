@@ -33,7 +33,7 @@ namespace SpectatorList
                 {
                     if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && plugin.Config.IgnoreOverwatch) && !(splayer.IsNorthwoodStaff && plugin.Config.IgnoreNorthwood))
                     {
-                        list.Append($"\n{splayer.Nickname}");
+                        list.AppendFormat("\n{0}", splayer.Nickname);
                         count++;
                     }
                 }
