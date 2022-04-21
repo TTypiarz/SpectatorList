@@ -28,7 +28,7 @@ namespace SpectatorList
                 StringBuilder list = StringBuilderPool.Shared.Rent();
                 int count = 0;
 
-                list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
+                list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>{plugin.Config.SpectatorsText} ((COUNT)):</b>");
                 foreach (Player splayer in player.CurrentSpectatingPlayers)
                 {
                     if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && plugin.Config.IgnoreOverwatch || splayer.IsNorthwoodStaff && plugin.Config.IgnoreNorthwood))
