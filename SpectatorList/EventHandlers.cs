@@ -41,7 +41,7 @@ namespace SpectatorList
 
                 if (count > 0)
                 {
-                    player.ShowHint(list.ToString().Replace("(COUNT)", $"{count}"), 1.2f);
+                    player.ShowHint(StringBuilderPool.Shared.ToStringReturn(list).Replace("(COUNT)", $"{count}"), 1.2f);
                 }
             }
         }
