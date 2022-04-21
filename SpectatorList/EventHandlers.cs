@@ -20,7 +20,6 @@ namespace SpectatorList
 
         public IEnumerator<float> SpectatorList(Player player)
         {
-            yield return Timing.WaitForSeconds(1);
             while (true)
             {
                 yield return Timing.WaitForSeconds(1);
@@ -29,19 +28,19 @@ namespace SpectatorList
                 StringBuilder list = StringBuilderPool.Shared.Rent();
                 int count = 0;
 
-                if (player.CurrentSpectatingPlayers.Count() > 1)
+                list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
+                foreach (Player splayer in player.CurrentSpectatingPlayers)
                 {
-                    list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
-                    foreach (Player splayer in player.CurrentSpectatingPlayers)
+                    if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && plugin.Config.IgnoreOverwatch || splayer.IsNorthwoodStaff && plugin.Config.IgnoreNorthwood))
                     {
-                        if (splayer != player && !splayer.IsGlobalModerator && ((splayer.IsOverwatchEnabled && !plugin.Config.IgnoreOverwatch) || (splayer.IsNorthwoodStaff && !plugin.Config.IgnoreNorthwood)))
-                        {
-                            list.Append($"\n{splayer.Nickname}");
-                            count++;
-                        }
+                        list.Append($"\n{splayer.Nickname}");
+                        count++;
                     }
-                    list.Append("</color></size></align>");
+                }
+                list.Append("</color></size></align>");
 
+                if (count > 0)
+                {
                     player.ShowHint(list.ToString().Replace("(COUNT)", $"{count}"), 1.2f);
                 }
             }
