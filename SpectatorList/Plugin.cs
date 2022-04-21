@@ -4,7 +4,7 @@ using Player = Exiled.Events.Handlers.Player;
 
 namespace SpectatorList
 {
-    public class Plugin : Plugin<Config>
+    public class Plugin : Plugin<Config, Translation>
     {
         public static Plugin Singleton;
         public EventHandlers EventHandlers;

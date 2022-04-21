@@ -3,7 +3,6 @@ using Exiled.Events.EventArgs;
 using MEC;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace SpectatorList
@@ -28,12 +27,15 @@ namespace SpectatorList
                 StringBuilder list = StringBuilderPool.Shared.Rent();
                 int count = 0;
 
-                list.Append($"<align=right><size=45%><color={player.Role.Color.ToHex()}><b>👥 Spectators ((COUNT)):</b>");
+                list.Append(plugin.Translation.Title);
                 foreach (Player splayer in player.CurrentSpectatingPlayers)
                 {
                     if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && plugin.Config.IgnoreOverwatch) && !(splayer.IsNorthwoodStaff && plugin.Config.IgnoreNorthwood))
                     {
-                        list.AppendFormat("\n{0}", splayer.Nickname);
+                        if (!plugin.Translation.Names.Equals("(none)"))
+                        {
+                            list.Append(plugin.Translation.Names.Replace("(NAME)", splayer.Nickname));
+                        }
                         count++;
                     }
                 }
@@ -41,7 +43,7 @@ namespace SpectatorList
 
                 if (count > 0)
                 {
-                    player.ShowHint(StringBuilderPool.Shared.ToStringReturn(list).Replace("(COUNT)", $"{count}"), 1.2f);
+                    player.ShowHint(StringBuilderPool.Shared.ToStringReturn(list).Replace("(COUNT)", $"{count}").Replace("(COLOR)", player.Role.Color.ToHex()), 1.2f);
                 }
                 else StringBuilderPool.Shared.Return(list);
             }
