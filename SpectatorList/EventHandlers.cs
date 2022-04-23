@@ -14,7 +14,7 @@ namespace SpectatorList
 
         public void OnVerified(VerifiedEventArgs ev)
         {
-            Timing.RunCoroutine(SpectatorList(ev.Player));
+            Timing.RunCoroutine(SpectatorList(ev.Player).CancelWith(ev.Player.GameObject));
         }
 
         public IEnumerator<float> SpectatorList(Player player)
@@ -39,7 +39,6 @@ namespace SpectatorList
                         count++;
                     }
                 }
-                list.Append("</color></size></align>");
 
                 if (count > 0)
                 {
