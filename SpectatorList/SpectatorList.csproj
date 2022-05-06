@@ -32,17 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>D:\SFNetwork\references\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>D:\SFNetwork\references\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-Publicized">
       <HintPath>D:\SFNetwork\references\Assembly-CSharp-Publicized.dll</HintPath>
-    </Reference>
-    <Reference Include="CommandSystem.Core">
-      <HintPath>D:\SFNetwork\references\CommandSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.API">
       <HintPath>D:\SFNetwork\references\Exiled.API.dll</HintPath>
@@ -52,12 +46,6 @@
     </Reference>
     <Reference Include="Exiled.Loader">
       <HintPath>D:\SFNetwork\references\Exiled.Loader.dll</HintPath>
-    </Reference>
-    <Reference Include="Exiled.Permissions">
-      <HintPath>D:\SFNetwork\references\Exiled.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror">
-      <HintPath>D:\SFNetwork\references\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="NorthwoodLib">
       <HintPath>D:\SFNetwork\references\NorthwoodLib.dll</HintPath>
