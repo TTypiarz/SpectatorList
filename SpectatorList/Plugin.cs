@@ -6,37 +6,52 @@ namespace SpectatorList
 {
     public class Plugin : Plugin<Config, Translation>
     {
-        public static Plugin Singleton;
-        public EventHandlers EventHandlers;
+        public override string Author => "TTypiarz";
 
-        public override string Author { get; } = "TTypiarz";
+        public override string Name => "SpectatorList";
 
-        public override string Name { get; } = "SpectatorList";
-
-        public override string Prefix { get; } = "SpectatorList";
+        public override string Prefix => "SpectatorList";
 
         public override Version RequiredExiledVersion { get; } = new Version(5, 0, 0);
 
         public override Version Version { get; } = new Version(1, 1, 1);
+        
+        public static Plugin Singleton { get; private set; }
+        
+        private EventHandlers _eventHandlers;
 
+        private Plugin() {}
+        
         public override void OnEnabled()
         {
             Singleton = this;
-            EventHandlers = new EventHandlers(this);
-
-            Player.Verified += EventHandlers.OnVerified;
+            
+            RegisterEvents();
 
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
+            UnregisterEvents();
+            
             Singleton = null;
-            EventHandlers = null;
-
-            Player.Verified -= EventHandlers.OnVerified;
 
             base.OnDisabled();
+        }
+
+        private void RegisterEvents()
+        {
+            _eventHandlers = new EventHandlers();
+
+            Player.Verified += _eventHandlers.OnVerified;
+        }
+
+        private void UnregisterEvents()
+        {
+            Player.Verified -= _eventHandlers.OnVerified;
+
+            _eventHandlers = null;
         }
     }
 }

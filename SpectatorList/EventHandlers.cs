@@ -9,41 +9,36 @@ namespace SpectatorList
 {
     public class EventHandlers
     {
-        private readonly Plugin plugin;
-        public EventHandlers(Plugin plugin) => this.plugin = plugin;
+        private readonly Config _config = Plugin.Singleton.Config;
+        private readonly Translation _translation = Plugin.Singleton.Translation;
+        
+        public void OnVerified(VerifiedEventArgs ev) => Timing.RunCoroutine(SpectatorList(ev.Player).CancelWith(ev.Player.GameObject));
 
-        public void OnVerified(VerifiedEventArgs ev)
-        {
-            Timing.RunCoroutine(SpectatorList(ev.Player).CancelWith(ev.Player.GameObject));
-        }
-
-        public IEnumerator<float> SpectatorList(Player player)
+        private IEnumerator<float> SpectatorList(Player player)
         {
             while (true)
             {
                 yield return Timing.WaitForSeconds(1);
-
                 yield return Timing.WaitUntilTrue(() => player.IsAlive);
+                
                 StringBuilder list = StringBuilderPool.Shared.Rent();
                 int count = 0;
 
-                list.Append(plugin.Translation.Title);
+                list.Append(_translation.Title);
+                
                 foreach (Player splayer in player.CurrentSpectatingPlayers)
                 {
-                    if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && plugin.Config.IgnoreOverwatch) && !(splayer.IsNorthwoodStaff && plugin.Config.IgnoreNorthwood))
+                    if (splayer != player && !splayer.IsGlobalModerator && !(splayer.IsOverwatchEnabled && _config.IgnoreOverwatch) && !(splayer.IsNorthwoodStaff && _config.IgnoreNorthwood))
                     {
-                        if (!plugin.Translation.Names.Equals("(none)"))
-                        {
-                            list.Append(plugin.Translation.Names.Replace("(NAME)", splayer.Nickname));
-                        }
+                        if (!_translation.Names.Equals("(none)"))
+                            list.Append(_translation.Names.Replace("(NAME)", splayer.Nickname));
+
                         count++;
                     }
                 }
 
                 if (count > 0)
-                {
                     player.ShowHint(StringBuilderPool.Shared.ToStringReturn(list).Replace("(COUNT)", $"{count}").Replace("(COLOR)", player.Role.Color.ToHex()), 1.2f);
-                }
                 else StringBuilderPool.Shared.Return(list);
             }
         }
