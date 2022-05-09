@@ -6,8 +6,7 @@ namespace SpectatorList
 {
     public class Plugin : Plugin<Config, Translation>
     {
-        public static Plugin Singleton;
-        public EventHandlers EventHandlers;
+        private EventHandlers EventHandlers;
 
         public override string Author { get; } = "TTypiarz";
 
@@ -21,9 +20,7 @@ namespace SpectatorList
 
         public override void OnEnabled()
         {
-            Singleton = this;
             EventHandlers = new EventHandlers(this);
-
             Player.Verified += EventHandlers.OnVerified;
 
             base.OnEnabled();
@@ -31,11 +28,9 @@ namespace SpectatorList
 
         public override void OnDisabled()
         {
-            Singleton = null;
-
             Player.Verified -= EventHandlers.OnVerified;
-
             EventHandlers = null;
+
             base.OnDisabled();
         }
     }
