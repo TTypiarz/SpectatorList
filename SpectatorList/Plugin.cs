@@ -20,14 +20,14 @@ public class Plugin : Plugin<Config, Translation>
     public override void OnEnabled()
     {
         EventHandlers = new EventHandlers(this);
-        Exiled.Events.Handlers.Player.Verified += EventHandlers.OnVerified;
+        Exiled.Events.Handlers.Player.Spawned += EventHandlers.OnSpawned;
 
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        Exiled.Events.Handlers.Player.Verified -= EventHandlers.OnVerified;
+        Exiled.Events.Handlers.Player.Spawned -= EventHandlers.OnSpawned;
         EventHandlers = null;
 
         base.OnDisabled();
