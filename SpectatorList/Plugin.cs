@@ -1,35 +1,18 @@
-﻿using Exiled.API.Features;
-using System;
+﻿using PluginAPI.Core.Attributes;
+using PluginAPI.Events;
 
 namespace SpectatorList;
 
-public class Plugin : Plugin<Config, Translation>
+public class Plugin
 {
-    private EventHandlers EventHandlers;
+    public static Plugin Instance { get; private set; }
 
-    public override string Author { get; } = "TTypiarz";
+    [PluginConfig] public Config Config;
 
-    public override string Name { get; } = "SpectatorList";
-
-    public override string Prefix { get; } = "SpectatorList";
-
-    public override Version RequiredExiledVersion { get; } = new Version(6, 0, 0);
-
-    public override Version Version { get; } = new Version(1, 1, 4);
-
-    public override void OnEnabled()
+    [PluginEntryPoint("SpectatorList", "1.1.4", "This Plugin allows you to see who is currently Spectating you and watching your every move.", "TTypiarz")]
+    public void OnLoad()
     {
-        EventHandlers = new EventHandlers(this);
-        Exiled.Events.Handlers.Player.Verified += EventHandlers.OnVerified;
-
-        base.OnEnabled();
-    }
-
-    public override void OnDisabled()
-    {
-        Exiled.Events.Handlers.Player.Verified -= EventHandlers.OnVerified;
-        EventHandlers = null;
-
-        base.OnDisabled();
+        Instance = this;
+        EventManager.RegisterEvents<EventHandlers>(this);
     }
 }
