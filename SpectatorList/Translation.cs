@@ -9,5 +9,5 @@ public sealed class Translation : ITranslation
     public string Title { get; set; } = "<align=right><size=45%><color=(COLOR)><b>Spectators ((COUNT)):</b></color></size></align>";
 
     [Description("How names should be displayed - Use (NAME) to get player name, Type (NONE) if you don't want to show their names.")]
-    public string Names { get; set; } = "<align=right><size=45%><color=(COLOR)>\\n(NAME)</color></size></align>";
+    public string Names { get; set; } = "<align=right><size=45%><color=(COLOR)><br>(NAME)</color></size></align>";
 }
