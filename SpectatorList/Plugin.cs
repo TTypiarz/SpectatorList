@@ -15,7 +15,7 @@ public class Plugin : Plugin<Config, Translation>
 
     public override Version RequiredExiledVersion { get; } = new Version(6, 0, 0);
 
-    public override Version Version { get; } = new Version(1, 1, 4);
+    public override Version Version { get; } = new Version(1, 1, 5);
 
     public override void OnEnabled()
     {
