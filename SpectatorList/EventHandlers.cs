@@ -13,7 +13,7 @@ public class EventHandlers
     private readonly Plugin plugin;
     public EventHandlers(Plugin plugin) => this.plugin = plugin;
 
-    public void OnSpawned(SpawnedEventArgs ev) => Timing.RunCoroutine(SpectatorList(ev.Player).CancelWith(ev.Player.GameObject));
+    public void OnSpawning(SpawningEventArgs ev) => Timing.RunCoroutine(SpectatorList(ev.Player).CancelWith(ev.Player.GameObject));
 
     private IEnumerator<float> SpectatorList(Player player)
     {

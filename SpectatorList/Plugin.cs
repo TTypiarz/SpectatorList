@@ -15,19 +15,19 @@ public class Plugin : Plugin<Config, Translation>
 
     public override Version RequiredExiledVersion { get; } = new Version(6, 0, 0);
 
-    public override Version Version { get; } = new Version(1, 1, 5);
+    public override Version Version { get; } = new Version(1, 1, 6);
 
     public override void OnEnabled()
     {
         EventHandlers = new EventHandlers(this);
-        Exiled.Events.Handlers.Player.Spawned += EventHandlers.OnSpawned;
+        Exiled.Events.Handlers.Player.Spawning += EventHandlers.OnSpawning;
 
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        Exiled.Events.Handlers.Player.Spawned -= EventHandlers.OnSpawned;
+        Exiled.Events.Handlers.Player.Spawning -= EventHandlers.OnSpawning;
         EventHandlers = null;
 
         base.OnDisabled();
