@@ -33,7 +33,7 @@ public class EntryPoint : Plugin<Config>
 
     public override void OnDisabled()
     {
-        Harmony.UnpatchAll();
+        Harmony.UnpatchAll(Harmony.Id);
 
         Exiled.Events.Handlers.Player.Verified -= PlayerEventsHandler.OnPlayerJoined;
 
