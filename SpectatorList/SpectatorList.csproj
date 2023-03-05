@@ -48,6 +48,12 @@
     <Reference Include="CommandSystem.Core">
       <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Exiled.API">
+      <HintPath>..\..\..\..\Documents\EXILED\Plugins\dependencies\Exiled.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Events">
+      <HintPath>..\..\..\..\Documents\EXILED\Plugins\Exiled.Events.dll</HintPath>
+    </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>$(SL_REFERENCES)\Mirror.dll</HintPath>
     </Reference>
@@ -55,10 +61,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
     </Reference>
-    <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(SL_REFERENCES)\PluginAPI.dll</HintPath>
-    </Reference>
+    <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +73,9 @@
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

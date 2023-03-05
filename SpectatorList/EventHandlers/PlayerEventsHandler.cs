@@ -1,18 +1,17 @@
-﻿using Hints;
-using PluginAPI.Core;
-using PluginAPI.Core.Attributes;
-using PluginAPI.Enums;
+﻿using Exiled.Events.EventArgs.Player;
+using Hints;
 using SpectatorList.Components;
+using Hint = Hints.Hint;
+using Player = Exiled.API.Features.Player;
 
 namespace SpectatorList.EventHandlers;
 
 // With love by Jesus-QC <3
 public class PlayerEventsHandler
 {
-    [PluginEvent(ServerEventType.PlayerJoined)]
-    public void OnPlayerJoined(Player player)
+    public static void OnPlayerJoined(VerifiedEventArgs ev)
     {
-        player.GameObject.AddComponent<SpectatorListController>().Init(player);
+        ev.Player.GameObject.AddComponent<SpectatorListController>().Init(ev.Player);
     }
 
     public static void ShowHint(HintDisplay display, Hint hint)

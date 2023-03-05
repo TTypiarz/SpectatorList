@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Exiled.API.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace SpectatorList;
 
-public sealed class SpectatorListConfig
+public sealed class SpectatorListConfig : IConfig
 {
     [Description("Whether or not the plugin is enabled on this server.")]
     public bool IsEnabled { get; set; } = true;

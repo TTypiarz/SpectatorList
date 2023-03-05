@@ -1,6 +1,6 @@
-﻿using NorthwoodLib.Pools;
+﻿using Exiled.API.Features;
+using NorthwoodLib.Pools;
 using PlayerRoles.Spectating;
-using PluginAPI.Core;
 using System.Linq;
 using System.Text;
 
@@ -16,15 +16,15 @@ public class CustomHintDisplay
     public string Draw(Player player, string hint)
     {
         _stringBuilder.Clear();
-        _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.RoleBase.RoleColor.ToHex() + '>' + EntryPoint.Instance.SpectatorListConfig.SpectatorListTitle);
+        _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.Role.Color.ToHex() + '>' + EntryPoint.Instance.SpectatorListConfig.SpectatorListTitle);
 
         int count = 0;
-        foreach (Player spectator in Player.GetPlayers())
+        foreach (Player spectator in Player.List)
         {
             if (EntryPoint.Instance.SpectatorListConfig.SpectatorNames.Contains("(NONE)"))
                 break;
 
-            if (spectator.ReferenceHub.roleManager.CurrentRole is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkId)
+            if (spectator.ReferenceHub.roleManager.CurrentRole is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkIdentity.netId)
                 continue;
 
             if (spectator.IsGlobalModerator || spectator.IsOverwatchEnabled && EntryPoint.Instance.SpectatorListConfig.IgnoreOverwatch || spectator.IsNorthwoodStaff && EntryPoint.Instance.SpectatorListConfig.IgnoreNorthwood)

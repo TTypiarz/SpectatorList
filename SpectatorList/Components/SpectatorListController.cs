@@ -1,5 +1,5 @@
-﻿using Hints;
-using PluginAPI.Core;
+﻿using Exiled.API.Features;
+using Hints;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -63,7 +63,7 @@ public class SpectatorListController : MonoBehaviour
 
     private async void DrawHud()
     {
-        if (!Round.IsRoundStarted || !_player.IsAlive)
+        if (!Round.IsStarted || !_player.IsAlive)
             return;
 
         string hint = await Task.Run(() => _display.Draw(_player, savedHint));
