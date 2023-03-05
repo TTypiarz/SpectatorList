@@ -18,9 +18,9 @@ public sealed class SpectatorListConfig
     public bool IgnoreNorthwood { get; set; } = false;
 
     [Description("List of Server Roles that should be Ignored.")]
-    public HashSet<string> IgnoredRoles { get; set; } = new ();
+    public HashSet<string> IgnoredRoles { get; set; } = new();
 
-    [Description("Set the Spectator list Title - Use (COUNT) to get number of Spectators.")]
+    [Description("Set the Spectator List Title - Use (COUNT) to get number of Spectators.")]
     public string SpectatorListTitle { get; set; } = "<b>👥 Spectators ((COUNT)):</b>";
 
     [Description("How names should be displayed - Use (NAME) to get player name, Type (NONE) if you don't want to show their names.")]

@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Text;
-using NorthwoodLib.Pools;
+﻿using NorthwoodLib.Pools;
 using PlayerRoles.Spectating;
 using PluginAPI.Core;
+using System.Linq;
+using System.Text;
 
 namespace SpectatorList;
 
@@ -10,7 +10,7 @@ namespace SpectatorList;
 public class CustomHintDisplay
 {
     private readonly StringBuilder _stringBuilder = StringBuilderPool.Shared.Rent();
-    
+
     public void Clear() => StringBuilderPool.Shared.Return(_stringBuilder);
 
     public string Draw(Player player, string hint)
@@ -21,15 +21,15 @@ public class CustomHintDisplay
         int count = 0;
         foreach (Player spectator in Player.GetPlayers())
         {
-            if (EntryPoint.Instance.SpectatorListConfig.SpectatorNames.Contains("(NONE)")) 
+            if (EntryPoint.Instance.SpectatorListConfig.SpectatorNames.Contains("(NONE)"))
                 break;
 
             if (spectator.ReferenceHub.roleManager.CurrentRole is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkId)
                 continue;
-            
+
             if (spectator.IsGlobalModerator || spectator.IsOverwatchEnabled && EntryPoint.Instance.SpectatorListConfig.IgnoreOverwatch || spectator.IsNorthwoodStaff && EntryPoint.Instance.SpectatorListConfig.IgnoreNorthwood)
                 continue;
-            
+
             if (EntryPoint.Instance.SpectatorListConfig.IgnoredRoles.Contains(spectator.ReferenceHub.serverRoles.GetUncoloredRoleString()))
                 continue;
 

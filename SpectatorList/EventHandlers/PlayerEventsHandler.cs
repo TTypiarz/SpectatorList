@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Hints;
-using InventorySystem.Items;
+﻿using Hints;
 using PluginAPI.Core;
+using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using SpectatorList.Components;
-using PluginAPI.Core.Attributes;
 
 namespace SpectatorList.EventHandlers;
 
@@ -16,15 +14,15 @@ public class PlayerEventsHandler
     {
         player.GameObject.AddComponent<SpectatorListController>().Init(player);
     }
-    
+
     public static void ShowHint(HintDisplay display, Hint hint)
     {
         Player player = Player.Get(display.netIdentity);
 
-        if(!SpectatorListController.Controllers.ContainsKey(player) || hint is not TextHint textHint)
+        if (!SpectatorListController.Controllers.ContainsKey(player) || hint is not TextHint textHint)
             return;
 
-        SpectatorListController controller =  SpectatorListController.Controllers[Player.Get(display.netIdentity)];
+        SpectatorListController controller = SpectatorListController.Controllers[Player.Get(display.netIdentity)];
         controller.savedHint = textHint.Text;
         controller.savedHintCounter = textHint.DurationScalar;
     }

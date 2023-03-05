@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Hints;
 using NorthwoodLib.Pools;
 using SpectatorList.EventHandlers;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace SpectatorList.Patches;
 
@@ -16,7 +16,7 @@ public class HintRedirectPatch
 
         newInstructions.InsertRange(newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_0), new List<CodeInstruction>
         {
-            new (OpCodes.Ldarg_0), 
+            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.ShowHint))),
             new (OpCodes.Ret)
@@ -24,7 +24,7 @@ public class HintRedirectPatch
 
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

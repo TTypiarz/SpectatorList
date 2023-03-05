@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Hints;
-using UnityEngine;
+﻿using Hints;
 using PluginAPI.Core;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine.Serialization;
+using UnityEngine;
 
 namespace SpectatorList.Components;
 
@@ -12,7 +11,7 @@ public class SpectatorListController : MonoBehaviour
 {
     public static float RefreshRate = 1;
 
-    public static readonly Dictionary<Player, SpectatorListController> Controllers = new ();
+    public static readonly Dictionary<Player, SpectatorListController> Controllers = new();
 
     private Player _player;
     private float _counter;
@@ -39,8 +38,8 @@ public class SpectatorListController : MonoBehaviour
     private void Update()
     {
         _counter += Time.deltaTime;
-        
-        if(_counter < RefreshRate)
+
+        if (_counter < RefreshRate)
             return;
 
         UpdateHintCounter();
@@ -53,18 +52,18 @@ public class SpectatorListController : MonoBehaviour
     {
         if (savedHintCounter < 0)
             return;
-        
+
         savedHintCounter -= 0.5f;
-            
+
         if (savedHintCounter >= 0)
             return;
-        
+
         savedHint = string.Empty;
     }
-    
+
     private async void DrawHud()
     {
-        if(!Round.IsRoundStarted || !_player.IsAlive)
+        if (!Round.IsRoundStarted || !_player.IsAlive)
             return;
 
         string hint = await Task.Run(() => _display.Draw(_player, savedHint));
