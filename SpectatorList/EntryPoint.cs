@@ -1,19 +1,17 @@
 ﻿using Exiled.API.Features;
-using Exiled.Events;
 using HarmonyLib;
 using SpectatorList.Components;
 using SpectatorList.EventHandlers;
 using System;
+using Player = Exiled.Events.Handlers.Player;
 
 namespace SpectatorList;
 
-public class EntryPoint : Plugin<Config>
+public class EntryPoint : Plugin<SpectatorListConfig>
 {
     public static EntryPoint Instance { get; private set; }
 
     public Harmony Harmony = new("spectatorlist.taj.com");
-
-    public SpectatorListConfig SpectatorListConfig;
 
     public override string Name => "SpectatorList";
     public override string Author => "TTypiarz and Jesus-QC";
@@ -24,9 +22,9 @@ public class EntryPoint : Plugin<Config>
     {
         Instance = this;
 
-        Exiled.Events.Handlers.Player.Verified += PlayerEventsHandler.OnPlayerJoined;
+        Player.Verified += PlayerEventsHandler.OnPlayerJoined;
 
-        SpectatorListController.RefreshRate = SpectatorListConfig.RefreshRate;
+        SpectatorListController.RefreshRate = Instance.Config.RefreshRate;
 
         Harmony.PatchAll();
     }
@@ -35,7 +33,7 @@ public class EntryPoint : Plugin<Config>
     {
         Harmony.UnpatchAll(Harmony.Id);
 
-        Exiled.Events.Handlers.Player.Verified -= PlayerEventsHandler.OnPlayerJoined;
+        Player.Verified -= PlayerEventsHandler.OnPlayerJoined;
 
         Instance = null;
     }

@@ -16,24 +16,24 @@ public class CustomHintDisplay
     public string Draw(Player player, string hint)
     {
         _stringBuilder.Clear();
-        _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.Role.Color.ToHex() + '>' + EntryPoint.Instance.SpectatorListConfig.SpectatorListTitle);
+        _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.Role.Color.ToHex() + '>' + EntryPoint.Instance.Config.SpectatorListTitle);
 
         int count = 0;
         foreach (Player spectator in Player.List)
         {
-            if (EntryPoint.Instance.SpectatorListConfig.SpectatorNames.Contains("(NONE)"))
+            if (EntryPoint.Instance.Config.SpectatorNames.Contains("(NONE)"))
                 break;
 
             if (spectator.ReferenceHub.roleManager.CurrentRole is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkIdentity.netId)
                 continue;
 
-            if (spectator.IsGlobalModerator || spectator.IsOverwatchEnabled && EntryPoint.Instance.SpectatorListConfig.IgnoreOverwatch || spectator.IsNorthwoodStaff && EntryPoint.Instance.SpectatorListConfig.IgnoreNorthwood)
+            if (spectator.IsGlobalModerator || spectator.IsOverwatchEnabled && EntryPoint.Instance.Config.IgnoreOverwatch || spectator.IsNorthwoodStaff && EntryPoint.Instance.Config.IgnoreNorthwood)
                 continue;
 
-            if (EntryPoint.Instance.SpectatorListConfig.IgnoredRoles.Contains(spectator.ReferenceHub.serverRoles.GetUncoloredRoleString()))
+            if (EntryPoint.Instance.Config.IgnoredRoles.Contains(spectator.ReferenceHub.serverRoles.GetUncoloredRoleString()))
                 continue;
 
-            _stringBuilder.AppendLine(EntryPoint.Instance.SpectatorListConfig.SpectatorNames.Replace("(NAME)", spectator.Nickname));
+            _stringBuilder.AppendLine(EntryPoint.Instance.Config.SpectatorNames.Replace("(NAME)", spectator.Nickname));
             count++;
         }
 
