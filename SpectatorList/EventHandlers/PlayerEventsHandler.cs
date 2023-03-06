@@ -18,6 +18,12 @@ public class PlayerEventsHandler
     {
         Player player = Player.Get(display.netIdentity);
 
+        if (!player.IsAlive)
+        {
+            player.Connection.Send(new HintMessage(hint));
+            return;
+        }
+
         if (!SpectatorListController.Controllers.ContainsKey(player) || hint is not TextHint textHint)
             return;
 
