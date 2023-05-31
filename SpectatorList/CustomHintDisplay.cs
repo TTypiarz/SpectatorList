@@ -15,7 +15,6 @@ public class CustomHintDisplay
 
     public string Draw(Player player, string hint)
     {
-        _stringBuilder.Clear();
         _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.RoleBase.RoleColor.ToHex() + '>' + EntryPoint.Instance.SpectatorListConfig.SpectatorListTitle);
 
         int count = 0;
@@ -46,7 +45,9 @@ public class CustomHintDisplay
 
         _stringBuilder.AppendLine(FillMissingLines(hint));
         _stringBuilder.AppendLine("<size=700%>\n</size>");
-        return _stringBuilder.ToString().Replace("(COUNT)", count.ToString());
+        string ret = _stringBuilder.ToString().Replace("(COUNT)", count.ToString());
+        _stringBuilder.Clear();
+        return ret;
     }
 
     private static string FillMissingLines(string text, int linesNeeded = 6)
