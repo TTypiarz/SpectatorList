@@ -1,4 +1,5 @@
 ﻿using Hints;
+using PlayerRoles.Spectating;
 using PluginAPI.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -66,7 +67,25 @@ public class SpectatorListController : MonoBehaviour
         if (!Round.IsRoundStarted || !_player.IsAlive)
             return;
 
+        int spectators = 0;
+        foreach (Player player in Player.GetPlayers())
+        {
+            if (!_player.ReferenceHub.IsSpectatedBy(player.ReferenceHub))
+                continue;
+
+            if (player.RoleBase is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != _player.NetworkId)
+                continue;
+
+            if (!EntryPoint.ShouldShowPlayer(player))
+                continue;
+
+            spectators++;
+        }
+
+        if (spectators <= 0)
+            return;
+
         string hint = await Task.Run(() => _display.Draw(_player, savedHint));
-        _player.Connection.Send(new HintMessage(new TextHint(hint, new HintParameter[] { new StringHintParameter(string.Empty) })));
+        _player.Connection.Send(new HintMessage(new TextHint(hint, new[] { new StringHintParameter(string.Empty) })));
     }
 }
