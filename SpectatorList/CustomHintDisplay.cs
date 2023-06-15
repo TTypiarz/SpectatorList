@@ -11,11 +11,12 @@ public class CustomHintDisplay
 {
     private readonly StringBuilder _stringBuilder = StringBuilderPool.Shared.Rent();
 
-    public void Clear() => StringBuilderPool.Shared.Return(_stringBuilder);
+    public void Clear() => _stringBuilder.Clear();
 
     public string Draw(Player player, string hint)
     {
-        _stringBuilder.Clear();
+        _stringBuilder.AppendLine("<size=700%>\n</size>");
+        _stringBuilder.AppendLine(FillMissingLines(hint));
         _stringBuilder.AppendLine("<align=right><size=45%><color=" + player.Role.Color.ToHex() + '>' + EntryPoint.Instance.Config.SpectatorListTitle);
 
         int count = 0;
@@ -24,13 +25,10 @@ public class CustomHintDisplay
             if (EntryPoint.Instance.Config.SpectatorNames.Contains("(NONE)"))
                 break;
 
-            if (spectator.ReferenceHub.roleManager.CurrentRole is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkIdentity.netId)
+            if (spectator.Role.Base is not SpectatorRole spectatorRole || spectatorRole.SyncedSpectatedNetId != player.NetworkIdentity.netId)
                 continue;
 
-            if (spectator.IsGlobalModerator || spectator.IsOverwatchEnabled && EntryPoint.Instance.Config.IgnoreOverwatch || spectator.IsNorthwoodStaff && EntryPoint.Instance.Config.IgnoreNorthwood)
-                continue;
-
-            if (EntryPoint.Instance.Config.IgnoredRoles.Contains(spectator.ReferenceHub.serverRoles.GetUncoloredRoleString()))
+            if (!EntryPoint.ShouldShowPlayer(spectator))
                 continue;
 
             _stringBuilder.AppendLine(EntryPoint.Instance.Config.SpectatorNames.Replace("(NAME)", spectator.Nickname));
@@ -44,9 +42,9 @@ public class CustomHintDisplay
 
         _stringBuilder.Append("</color></size></align>");
 
-        _stringBuilder.AppendLine(FillMissingLines(hint));
-        _stringBuilder.AppendLine("<size=700%>\n</size>");
-        return _stringBuilder.ToString().Replace("(COUNT)", count.ToString());
+        string ret = _stringBuilder.ToString().Replace("(COUNT)", count.ToString());
+        _stringBuilder.Clear();
+        return ret;
     }
 
     private static string FillMissingLines(string text, int linesNeeded = 6)

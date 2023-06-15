@@ -6,25 +6,25 @@ namespace SpectatorList;
 
 public sealed class SpectatorListConfig : IConfig
 {
-    [Description("Whether or not the plugin is enabled on this server.")]
+    [Description("Whether or not the plugin is enabled on this server")]
     public bool IsEnabled { get; set; } = true;
 
-    [Description("Whether or not Debug mode is enabled.")]
+    [Description("Whether or not debug mode is enabled.")]
     public bool Debug { get; set; } = false;
 
-    [Description("Whether or not people with Overwatch enable should be Ignored.")]
+    [Description("Whether or not people with Overwatch enabled should be ignored")]
     public bool IgnoreOverwatch { get; set; } = true;
 
-    [Description("Whether or not Northwood Staff should be Ignored. (Global Moderators will ALWAYS be Ignored)")]
+    [Description("Whether or not Northwood staff should be ignored (Global Moderators will ALWAYS be ignored.)")]
     public bool IgnoreNorthwood { get; set; } = false;
 
-    [Description("List of Server Roles that should be Ignored.")]
+    [Description("List of server roles that should be ignored")]
     public HashSet<string> IgnoredRoles { get; set; } = new();
 
-    [Description("Set the Spectator List Title - Use (COUNT) to get number of Spectators.")]
+    [Description("Set the Spectator List Title. Use (COUNT) to get the number of spectators")]
     public string SpectatorListTitle { get; set; } = "<b>👥 Spectators ((COUNT)):</b>";
 
-    [Description("How names should be displayed - Use (NAME) to get player name, Type (NONE) if you don't want to show their names.")]
+    [Description("How names should be displayed. Use (NAME) to get the player's name; type (NONE) if you don't want to show their names.")]
     public string SpectatorNames { get; set; } = "(NAME)";
 
     [Description("The refresh rate of the hint")]

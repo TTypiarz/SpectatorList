@@ -19,15 +19,12 @@ public class PlayerEventsHandler
         Player player = Player.Get(display.netIdentity);
 
         if (!player.IsAlive)
-        {
-            player.Connection.Send(new HintMessage(hint));
             return;
-        }
 
         if (!SpectatorListController.Controllers.ContainsKey(player) || hint is not TextHint textHint)
             return;
 
-        SpectatorListController controller = SpectatorListController.Controllers[Player.Get(display.netIdentity)];
+        SpectatorListController controller = SpectatorListController.Controllers[player];
         controller.savedHint = textHint.Text;
         controller.savedHintCounter = textHint.DurationScalar;
     }
